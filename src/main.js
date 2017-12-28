@@ -19,6 +19,13 @@ const addVueInstanceMethod = {
 }
 Object.assign(Vue.prototype, addVueInstanceMethod)
 
+//  ui组件
+import YDUI from 'vue-ydui';
+import 'vue-ydui/dist/ydui.rem.css';
+import 'vue-ydui/dist/ydui.base.css';
+import 'vue-ydui/dist/ydui.flexible.js';
+Vue.use(YDUI);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

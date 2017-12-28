@@ -1,8 +1,8 @@
 /*
  * @Author: wangzunian 
  * @Date: 2017-04-10 10:16:22 
- * @Last Modified by: 2017-5-24
- * @Last Modified time: 2017-06-15 21:23:28
+ * @Last Modified by: wangzunian
+ * @Last Modified time: 2017-12-28 16:43:50
  */
 import axios from 'axios'
 
@@ -78,8 +78,8 @@ export default {
    * @param {any} params 
    * @returns 
    */
-  getFinaceList(params) {
-    return fetchGet('/front/accountCenter/myProject/getFinanceApplyList.json', params)
+  getBookList(params) {
+    return fetchGet('/v1/book/list', params)
   },
   /**
    * 登录请求
