@@ -73,7 +73,7 @@ export function fetchDelete(url, params) {
 /**  项目所有的请求写在这里并导出 */
 export default {
   /**
-   * 获取融资信息
+   * 获取图书列表信息
    * 
    * @param {any} params 
    * @returns 
@@ -82,12 +82,12 @@ export default {
     return fetchGet('/v1/book/list', params)
   },
   /**
-   * 登录请求
+   * 获取图书分类信息
    * 
    * @param {any} params 
    * @returns 
    */
-  login(params) {
-    return fetchPost('/common/passwordLogin.json', params)
+  getCategoryList(params) {
+    return fetchGet('/v1/category/list', params)
   }
 }
