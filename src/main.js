@@ -3,13 +3,28 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import Vuex from 'vuex'
+import store from './store/index'
+import filter from './filter/index'
 Vue.config.productionTip = false
+
+/** 引入工具类函数 */
+import tool from './utils/tool'
+import api from './fetch/api'
+
+/** 把一些公共方法或者属性注入到vue.prototype上面 */
+const addVueInstanceMethod = {
+  tool,
+  api
+}
+Object.assign(Vue.prototype, addVueInstanceMethod)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
+  filter,
   template: '<App/>',
   components: { App }
 })
