@@ -1,6 +1,5 @@
 <template>
-  <yd-layout>
-    <yd-search :result="result" fullpage v-model="value" :on-submit="submitHandler"></yd-search>
+  <yd-layout title="借阅记录">
     <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
       <yd-list theme="3" slot="list">
         <yd-list-item v-for="child in bookList" :key="child.id">
@@ -47,18 +46,13 @@ export default {
   name: 'Index',
   data() {
     return {
-      result: [],
       bookList: [],
       showModal: false,
       selectedBook: null,
       borrowdate: '',
-      value: ''
     }
   },
   methods: {
-    submitHandler() {
-
-    },
     borrow(child) {
       this.showModal = true;
       this.selectedBook = child;

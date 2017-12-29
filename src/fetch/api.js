@@ -2,7 +2,7 @@
  * @Author: wangzunian 
  * @Date: 2017-04-10 10:16:22 
  * @Last Modified by: wangzunian
- * @Last Modified time: 2017-12-29 16:36:44
+ * @Last Modified time: 2017-12-29 17:26:01
  */
 import axios from 'axios'
 
@@ -119,12 +119,21 @@ export default {
     return fetchPost('/v1/book/borrow', params)
   },
   /**
+   * 用户还书
+   * 
+   * @param {any} params 
+   * @returns 
+   */
+  returnBook(params) {
+    return fetchPost('/v1/book/return', params)
+  },
+  /**
    * 用户借阅记录
    * 
    * @param {any} params 
    * @returns 
    */
   borrowRecord(params) {
-    return fetchGet('/v1/book/user-book-borrow', params)
+    return fetchGet('/v1/user-book-borrow', params)
   },
 }

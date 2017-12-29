@@ -11,7 +11,7 @@
                                     <div class="book-list-isbn mt10">
                                          {{child.isbn}}</div>
                                     <div class="book-list-btn mt10" v-if=" child.locked == 1" @click="borrow(child)"><yd-button type="primary">我要借阅</yd-button></div>
-                                    <div class="book-list-btn mt10" v-if="child.locked == 2 && child.borrows_status == 2"><yd-button type="warning">我要还书</yd-button></div>
+                                    <div class="book-list-btn mt10" v-if="child.locked == 2 && child.borrows_status == 2" @click="returnBook(child)"><yd-button type="warning">我要还书</yd-button></div>
                                      <div class="book-list-btn mt10" v-if="child.locked == 2 && child.borrows_status == 1"><yd-button type="disabled">暂不能借阅</yd-button></div>
                                 </div>
                                 <div class="book-borrows-count">
@@ -40,6 +40,20 @@
            </div>
         </yd-button-group>
         </yd-popup>
+   <!-- 弹窗提示 -->
+    <yd-popup v-model="showModal2" position="center" width="90%">
+        <yd-button-group>
+           <div class="borrow-time">
+           <yd-cell-group>
+            <yd-cell-item arrow>
+                <span slot="left">预计归还日期：</span>
+                <yd-datetime ref="datetime" type="date" v-model="borrowdate1" slot="right" :callback="confirmBorrow1"></yd-datetime>
+            </yd-cell-item>
+        </yd-cell-group>
+               <yd-button size="large" @click.native="open">请选择预计归还日期</yd-button>
+           </div>
+        </yd-button-group>
+        </yd-popup>
   </yd-layout>
 </template>
 
@@ -51,8 +65,10 @@ export default {
       result: [],
       bookList: [],
       showModal: false,
+      showModal2: false,
       selectedBook: null,
       borrowdate: '',
+      borrowdate1: '',
       value: ''
     }
   },
@@ -63,7 +79,10 @@ export default {
     borrow(child) {
       this.showModal = true;
       this.selectedBook = child;
-      this.selectedFlag = true;
+    },
+    returnBook(child){
+      this.showModal2 = true;
+      this.selectedBook = child;
     },
     open() {
                 this.$refs.datetime.open();
@@ -82,11 +101,20 @@ export default {
       }).then(res => {
         this.showModal = false;
       })
+    },
+    confirmBorrow1(){
+      this.api.returnBook({
+        borrow_id: this.selectedBook ? this.selectedBook.id :  null,
+        pre_return_at: this.borrowdate1
+      }).then(res => {
+        this.showModal = false;
+      })
     }
   },
   mounted() {
     let curDate = new Date();
     this.borrowdate = curDate.toLocaleDateString();
+    this.borrowdate1 = curDate.toLocaleDateString();
     this.api.getBookList().then(res => {
       this.bookList = res.data.data
     })

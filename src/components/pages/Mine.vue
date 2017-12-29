@@ -2,7 +2,7 @@
     <yd-layout title="个人中心">
         <div class="user-container">
           <yd-cell-group>
-        <yd-cell-item arrow href="#" type="link">
+        <yd-cell-item arrow href="/borrow-record" type="link">
             <yd-icon slot="icon" name="order" size=".42rem"></yd-icon>
             <span slot="left">借阅记录</span>
             <span slot="right">查看借阅记录</span>

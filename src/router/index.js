@@ -5,6 +5,7 @@ import CategoryList from '@/components/pages/CategoryList'
 import Login from '@/components/pages/Login'
 import Register from '@/components/pages/Register'
 import Mine from '@/components/pages/Mine'
+import BorrowRecord from '@/components/pages/BorrowRecord'
 Vue.use(Router)
 
 export default new Router({
@@ -18,6 +19,11 @@ export default new Router({
       path: '/category-list',
       name: 'CategoryList',
       component: CategoryList
+    },
+    {
+      path: '/borrow-record',
+      name: 'BorrowRecord',
+      component: BorrowRecord
     },
     {
       path: '/user/login',
