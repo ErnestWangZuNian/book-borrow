@@ -2,7 +2,7 @@
  * @Author: wangzunian 
  * @Date: 2017-04-10 10:16:22 
  * @Last Modified by: wangzunian
- * @Last Modified time: 2017-12-28 16:43:50
+ * @Last Modified time: 2017-12-29 16:36:44
  */
 import axios from 'axios'
 
@@ -89,5 +89,42 @@ export default {
    */
   getCategoryList(params) {
     return fetchGet('/v1/category/list', params)
-  }
+  },
+
+   /**
+   * 注册用户信息
+   * 
+   * @param {any} params 
+   * @returns 
+   */
+  registerUser(params) {
+    return fetchPost('/v1/register', params)
+  },
+ /**
+   * 用户登录
+   * 
+   * @param {any} params 
+   * @returns 
+   */
+  loginUser(params) {
+    return fetchPost('/v1/login', params)
+  },
+  /**
+   * 用户借书
+   * 
+   * @param {any} params 
+   * @returns 
+   */
+  borrow(params) {
+    return fetchPost('/v1/book/borrow', params)
+  },
+  /**
+   * 用户借阅记录
+   * 
+   * @param {any} params 
+   * @returns 
+   */
+  borrowRecord(params) {
+    return fetchGet('/v1/book/user-book-borrow', params)
+  },
 }

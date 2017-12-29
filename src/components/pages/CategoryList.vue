@@ -6,16 +6,19 @@
                 <div style="min-height: 3.5rem">
 
                     <yd-list theme="4">
-                        <yd-list-item v-for="item in bookList" :key="item.id">
-                            <img slot="img" :src="item.img">
-                            <span slot="title">{{item.title}}</span>
+                        <yd-list-item v-for="child in bookList[item.id]" :key="child.id">
+                            <img slot="img" :src="child.cover">
+                            <span slot="title">{{child.name}}</span>
                             <yd-list-other slot="other">
                                 <div>
-                                    <span class="demo-list-price">
-                                        {{item.name}}</span>
-                                    <span class="demo-list-del-price">{{item.name}}</span>
+                                    <div class="book-list-isbn mt10">
+                                         {{child.isbn}}</div>
+                                    <div class="book-list-btn mt10" v-if="child.borrows_status === 1"><yd-button type="primary">我要借阅</yd-button></div>
+                                    <div class="book-list-btn mt10" v-if="child.borrows_status === 2"><yd-button type="primary">我要还书</yd-button></div>
                                 </div>
-                                <div>content</div>
+                                <div class="book-borrows-count">
+                                 <yd-badge type="danger">已借阅{{child.borrows_count}}次</yd-badge>
+                                 </div>
                             </yd-list-other>
                         </yd-list-item>
                     </yd-list>
@@ -31,22 +34,28 @@ export default {
     data() {
         return {
             list: [],
-            bookList: []
+            bookList: [],
         }
     },
     methods: {
         change(index) {
-            this.getBookList();
+            this.list.map((item,index1) => {
+                if(index === index1) {
+                  this.getBookList(item.id);
+                }
+            })
         },
-        getBookList() {
-            this.api.getBookList().then(res => {
-                this.bookList = res.data.data
+        getBookList(categoryId) {
+            this.api.getBookList({category_id: categoryId}).then(res => {
+                this.bookList = [];
+                this.bookList[categoryId] = res.data.data
             })
         }
     },
     mounted() {
         this.api.getCategoryList().then(res => {
             this.list = res.data.data
+            this.getBookList(this.list[0].id)
         })
     }
 }

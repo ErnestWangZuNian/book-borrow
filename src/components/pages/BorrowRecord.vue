@@ -10,9 +10,8 @@
                                 <div>
                                     <div class="book-list-isbn mt10">
                                          {{child.isbn}}</div>
-                                    <div class="book-list-btn mt10" v-if=" child.locked == 1" @click="borrow(child)"><yd-button type="primary">我要借阅</yd-button></div>
-                                    <div class="book-list-btn mt10" v-if="child.locked == 2 && child.borrows_status == 2"><yd-button type="warning">我要还书</yd-button></div>
-                                     <div class="book-list-btn mt10" v-if="child.locked == 2 && child.borrows_status == 1"><yd-button type="disabled">暂不能借阅</yd-button></div>
+                                    <div class="book-list-btn mt10" v-if="child.borrows_status === 1" @click="borrow(child)"><yd-button type="primary">我要借阅</yd-button></div>
+                                    <div class="book-list-btn mt10" v-if="child.borrows_status === 2"><yd-button type="primary">我要还书</yd-button></div>
                                 </div>
                                 <div class="book-borrows-count">
                                  <yd-badge type="danger">已借阅{{child.borrows_count}}次</yd-badge>
@@ -69,7 +68,7 @@ export default {
                 this.$refs.datetime.open();
             },
     loadList() {
-      this.api.getBookList().then(res => {
+      this.api.borrowRecord().then(res => {
         this.bookList = res.data.data
         /* 单次请求数据完毕 */
         this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
@@ -87,10 +86,9 @@ export default {
   mounted() {
     let curDate = new Date();
     this.borrowdate = curDate.toLocaleDateString();
-    this.api.getBookList().then(res => {
+    this.api.borrowRecord().then(res => {
       this.bookList = res.data.data
     })
-
   }
 }
 </script>
