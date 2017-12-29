@@ -107,7 +107,7 @@ export default {
         borrow_id: this.selectedBook ? this.selectedBook.id :  null,
         pre_return_at: this.borrowdate1
       }).then(res => {
-        this.showModal = false;
+        this.showModal2 = false;
       })
     }
   },
