@@ -18,6 +18,24 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  methods: {
+    getStatus() {
+        const self = this;
+        this.api.checkLoginStatus().then(res => {
+          if(res.status === 2) {
+             this.$dialog.alert({mes: '您还未登录,请先登录',callback: () => {
+                 console.log(self)
+                 self.$router.push('/user/login')
+             }});
+          }
+      })
+    }
+  },
+  mounted(){
+      if(!/\/user/.test(this.$route.path)){
+         this.getStatus();
+      }
+  }
 }
 </script>

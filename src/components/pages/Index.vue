@@ -47,10 +47,10 @@
            <yd-cell-group>
             <yd-cell-item arrow>
                 <span slot="left">预计归还日期：</span>
-                <yd-datetime ref="datetime" type="date" v-model="borrowdate1" slot="right" :callback="confirmBorrow1"></yd-datetime>
+                <yd-datetime ref="datetime1" type="date" v-model="borrowdate1" slot="right" :callback="confirmBorrow1"></yd-datetime>
             </yd-cell-item>
         </yd-cell-group>
-               <yd-button size="large" @click.native="open">请选择预计归还日期</yd-button>
+               <yd-button size="large" @click.native="open1">请选择预计归还日期</yd-button>
            </div>
         </yd-button-group>
         </yd-popup>
@@ -87,6 +87,14 @@ export default {
     open() {
                 this.$refs.datetime.open();
             },
+            open1() {
+              this.$refs.datetime1.open();
+            },
+    getBook() {
+       this.api.getBookList().then(res => {
+      this.bookList = res.data.data
+    })
+    },
     loadList() {
       this.api.getBookList().then(res => {
         this.bookList = res.data.data
@@ -100,25 +108,54 @@ export default {
         pre_return_at: this.borrowdate
       }).then(res => {
         this.showModal = false;
+        this.getBook();
       })
     },
     confirmBorrow1(){
       this.api.returnBook({
-        borrow_id: this.selectedBook ? this.selectedBook.id :  null,
+        book_id: this.selectedBook ? this.selectedBook.id :  null,
         pre_return_at: this.borrowdate1
       }).then(res => {
         this.showModal2 = false;
+        this.getBook();
       })
     }
   },
   mounted() {
-    let curDate = new Date();
-    this.borrowdate = curDate.toLocaleDateString();
-    this.borrowdate1 = curDate.toLocaleDateString();
-    this.api.getBookList().then(res => {
-      this.bookList = res.data.data
-    })
+    //格式化日期
+Date.prototype.format = function (fmt) {
+  var o = {
+    "y+": this.getFullYear(),
+    "M+": this.getMonth() + 1,               
+    "d+": this.getDate(),                 
+    "h+": this.getHours(),                  
+    "m+": this.getMinutes(),                 
+    "s+": this.getSeconds(),                
+    "q+": Math.floor((this.getMonth() + 3) / 3), 
+    "S+": this.getMilliseconds()           
+  };
+  for (var k in o) {
+    if (new RegExp("(" + k + ")").test(fmt)){
+      if(k == "y+"){
+        fmt = fmt.replace(RegExp.$1, ("" + o[k]).substr(4 - RegExp.$1.length));
+      }
+      else if(k=="S+"){
+        var lens = RegExp.$1.length;
+        lens = lens==1?3:lens;
+        fmt = fmt.replace(RegExp.$1, ("00" + o[k]).substr(("" + o[k]).length - 1,lens));
+      }
+      else{
+        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+      }
+    }
+  }
+  return fmt;
+}
 
+    let curDate = new Date();
+    this.borrowdate = new Date().format('yyyy-MM-dd');
+    this.borrowdate1 = new Date().format('yyyy-MM-dd');
+    this.getBook();
   }
 }
 </script>
