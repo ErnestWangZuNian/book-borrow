@@ -36,7 +36,7 @@ export default new Router({
       component: Register
     },
     {
-      path: '/user/mine',
+      path: '/mine',
       name: 'Mine',
       component: Mine
     },

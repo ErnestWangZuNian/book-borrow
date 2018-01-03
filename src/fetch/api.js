@@ -156,5 +156,14 @@ export default {
    */
   checkLoginStatus(params) {
     return fetchGet("/v1/auth-status", params);
+  },
+  /**
+   * 退出登录
+   *
+   * @param {any} params
+   * @returns
+   */
+  loginOut(params) {
+    return fetchGet("/v1/logout", params);
   }
 };

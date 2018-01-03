@@ -9,7 +9,7 @@
         <yd-tabbar-item title="图书分类" link="/category-list" :active="this.$route.path==='/category-list' ? true : false">
             <yd-icon name="shopcart-outline" slot="icon" size="0.54rem"></yd-icon>
         </yd-tabbar-item>
-        <yd-tabbar-item title="个人中心" link="/user/mine" :active="this.$route.path==='/user/mine' ? true : false">
+        <yd-tabbar-item title="个人中心" link="/mine" :active="this.$route.path==='/mine' ? true : false">
             <yd-icon name="ucenter" slot="icon" size="0.54rem"></yd-icon>
         </yd-tabbar-item>
     </yd-tabbar></div>
@@ -25,7 +25,6 @@ export default {
         this.api.checkLoginStatus().then(res => {
           if(res.status === 2) {
              this.$dialog.alert({mes: '您还未登录,请先登录',callback: () => {
-                 console.log(self)
                  self.$router.push('/user/login')
              }});
           }
