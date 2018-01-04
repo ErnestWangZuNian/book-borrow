@@ -9,8 +9,11 @@
             <div>
               <div class="book-list-isbn mt10">
                 {{child.isbn}}</div>
-              <div class="book-list-btn mt10" v-if="child.locked == 1 && child.status== 2" @click="returnBook(child)">
+              <div class="book-list-btn mt10" v-if="child.locked == 2" @click="returnBook(child)">
                 <yd-button type="warning">我要还书</yd-button>
+              </div>
+               <div class="book-list-btn mt10" v-if="child.locked == 1">
+                <yd-button type="primary">已经还书</yd-button>
               </div>
             </div>
             <div class="book-borrows-count">

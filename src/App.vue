@@ -9,6 +9,9 @@
         <yd-tabbar-item title="图书分类" link="/category-list" :active="this.$route.path==='/category-list' ? true : false">
             <yd-icon name="shopcart-outline" slot="icon" size="0.54rem"></yd-icon>
         </yd-tabbar-item>
+           <yd-tabbar-item title="我要购书" link="/buybook" :active="this.$route.path==='/buybookt' ? true : false">
+            <yd-icon name="shopcart-outline" slot="icon" size="0.54rem"></yd-icon>
+        </yd-tabbar-item>
         <yd-tabbar-item title="个人中心" link="/mine" :active="this.$route.path==='/mine' ? true : false">
             <yd-icon name="ucenter" slot="icon" size="0.54rem"></yd-icon>
         </yd-tabbar-item>
@@ -27,6 +30,8 @@ export default {
              this.$dialog.alert({mes: '您还未登录,请先登录',callback: () => {
                  self.$router.push('/user/login')
              }});
+          }else{
+              this.tool.localTest.set(res)
           }
       })
     }

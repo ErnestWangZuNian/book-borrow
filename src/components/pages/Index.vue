@@ -39,7 +39,7 @@
           <yd-cell-group>
             <yd-cell-item arrow>
               <span slot="left">预计归还日期：</span>
-              <yd-datetime v-if="selectedBook" ref="datetime" type="date" v-model="borrowdate" slot="right" :callback="confirmBorrow"></yd-datetime>
+              <yd-datetime  ref="datetime" type="date" v-model="borrowdate" slot="right" :callback="confirmBorrow"></yd-datetime>
             </yd-cell-item>
           </yd-cell-group>
           <yd-button size="large" @click.native="open">请选择预计归还日期</yd-button>
@@ -47,7 +47,7 @@
       </yd-button-group>
     </yd-popup>
     <!-- 弹窗提示 -->
-    <!-- <yd-popup v-model="showModal2" position="center" width="90%">
+     <yd-popup v-model="showModal2" position="center" width="90%">
       <yd-button-group>
         <div class="borrow-time">
           <yd-cell-group>
@@ -59,7 +59,7 @@
           <yd-button size="large" @click.native="open1">请选择预计归还日期</yd-button>
         </div>
       </yd-button-group>
-    </yd-popup> -->
+    </yd-popup> 
   </yd-layout>
 </template>
 

@@ -6,6 +6,8 @@ import Login from '@/components/pages/Login'
 import Register from '@/components/pages/Register'
 import Mine from '@/components/pages/Mine'
 import BorrowRecord from '@/components/pages/BorrowRecord'
+import BuyBook from '@/components/pages/BuyBook'
+import BuyBookRecord from '@/components/pages/BuyBookRecord'
 Vue.use(Router)
 
 export default new Router({
@@ -21,7 +23,7 @@ export default new Router({
       component: CategoryList
     },
     {
-      path: '/borrow-record',
+      path: '/mine/borrow-record',
       name: 'BorrowRecord',
       component: BorrowRecord
     },
@@ -29,6 +31,16 @@ export default new Router({
       path: '/user/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/buybook',
+      name: 'BuyBook',
+      component: BuyBook
+    },
+    {
+      path: '/mine/buy-record',
+      name: 'BuyBookRecord',
+      component: BuyBookRecord
     },
     {
       path: '/user/register',

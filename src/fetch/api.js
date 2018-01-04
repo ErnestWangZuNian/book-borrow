@@ -2,7 +2,7 @@
  * @Author: wangzunian 
  * @Date: 2017-04-10 10:16:22 
  * @Last Modified by: wangzunian
- * @Last Modified time: 2018-01-03 08:42:39
+ * @Last Modified time: 2018-01-04 20:58:22
  */
 import axios from "axios";
 
@@ -130,6 +130,24 @@ export default {
   borrow(params) {
     return fetchPost("/v1/book/borrow", params);
   },
+  /**
+   * 买书申请
+   *
+   * @param {any} params
+   * @returns
+   */
+  applyBuyBook(params) {
+    return fetchPost("/v1/user-book-apply", params);
+  },
+  /**
+  * 买书申请记录
+  *
+  * @param {any} params
+  * @returns
+  */
+ applyRecord(params) {
+   return fetchGet("/v1/user-book-apply", params);
+ },
   /**
    * 用户还书
    *
