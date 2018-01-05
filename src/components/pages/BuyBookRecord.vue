@@ -42,6 +42,13 @@ export default {
     }
   },
   methods: {
+     loadList() {
+      this.api.getBookList().then(res => {
+        this.bookList = res.data.data
+        /* 单次请求数据完毕 */
+        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
+      })
+    },
     getBook() {
       this.api.applyRecord().then(res => {
         this.bookList = res.data.data
