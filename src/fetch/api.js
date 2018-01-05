@@ -2,9 +2,10 @@
  * @Author: wangzunian 
  * @Date: 2017-04-10 10:16:22 
  * @Last Modified by: wangzunian
- * @Last Modified time: 2018-01-05 08:40:08
+ * @Last Modified time: 2018-01-05 08:58:20
  */
 import axios from "axios";
+import { Confirm, Alert, Toast, Notify, Loading } from 'vue-ydui/dist/lib.rem/dialog';
 
 /**  axios基础配置 */
 axios.defaults.timeout = 5000;
@@ -19,7 +20,11 @@ export function fetchGet(url, params) {
       })
       .then(
         response => {
-          resolve(response.data);
+          if(response.data.status !== "fail") {
+            resolve(response.data);
+          }else{
+            Alert({mes: response.data.message});
+          }
         },
         err => {
           reject(err);
@@ -36,7 +41,11 @@ export function fetchPost(url, params) {
       .post(url, params)
       .then(
         response => {
-          resolve(response.data);
+          if(response.data.status !== "fail") {
+            resolve(response.data);
+          }else{
+            Alert({mes: response.data.message});
+          }
         },
         err => {
           reject(err);
@@ -53,7 +62,11 @@ export function fetchPut(url, params) {
       .put(url, params)
       .then(
         response => {
-          resolve(response.data);
+          if(response.data.status !== "fail") {
+            resolve(response.data);
+          }else{
+            Alert({mes: response.data.message});
+          }
         },
         err => {
           reject(err);
@@ -70,7 +83,11 @@ export function fetchDelete(url, params) {
       .delete(url, params)
       .then(
         response => {
-          resolve(response.data);
+          if(response.data.status !== "fail") {
+            resolve(response.data);
+          }else{
+            Alert({mes: response.data.message});
+          }
         },
         err => {
           reject(err);

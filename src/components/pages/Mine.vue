@@ -32,7 +32,7 @@ export default {
     methods: {
         loginOut(){
             this.api.loginOut().then(res => {
-
+               this.$router.push("/user/login")
             })
         }
     }

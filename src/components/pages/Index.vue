@@ -1,6 +1,6 @@
 <template>
   <yd-layout>
-    <yd-search :result="result" fullpage v-model="value" :on-submit="submitHandler"></yd-search>
+    <yd-search :result="result" fullpage v-model="searchValue" :on-submit="submitHandler"></yd-search>
     <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
       <yd-list theme="3" slot="list">
         <yd-list-item v-for="child in bookList" :key="child.id">
@@ -75,12 +75,14 @@ export default {
       selectedBook: null,
       borrowdate: '',
       borrowdate1: '',
-      value: ''
+      searchValue: ''
     }
   },
   methods: {
     submitHandler() {
-
+     this.getBook({
+       search: this.searchValue
+     })
     },
     borrow(child) {
       this.showModal = true;
@@ -96,8 +98,8 @@ export default {
     open1() {
       this.$refs.datetime1.open();
     },
-    getBook() {
-      this.api.getBookList().then(res => {
+    getBook(item=null) {
+      this.api.getBookList(item).then(res => {
         this.bookList = res.data.data
       })
     },

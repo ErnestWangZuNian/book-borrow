@@ -45,7 +45,7 @@ export default {
                 price: this.price,
                 buy_link: this.buylink
             }).then(res => {
-                // this.$router.push("/");
+                 this.$router.push("/mine/buy-record");
             })
         }
     },

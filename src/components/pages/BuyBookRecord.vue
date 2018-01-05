@@ -9,15 +9,12 @@
             <div>
               <div class="book-list-isbn mt10">
                 {{child.isbn}}</div>
-              <div class="book-list-btn mt10" v-if="child.locked == 2" @click="returnBook(child)">
-                <yd-button type="warning">我要还书</yd-button>
-              </div>
-               <div class="book-list-btn mt10" v-if="child.locked == 1">
-                <yd-button type="primary">已经还书</yd-button>
+              <div class="book-list-btn mt10" @click="returnBook(child)">
+                <yd-button type="warning">{{item.price}}</yd-button>
               </div>
             </div>
             <div class="book-borrows-count">
-              <yd-badge type="danger">已借阅{{child.borrows_count}}次</yd-badge>
+              <yd-badge type="danger">查看详情</yd-badge>
             </div>
           </yd-list-other>
         </yd-list-item>
