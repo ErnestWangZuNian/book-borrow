@@ -104,6 +104,7 @@ export default {
       })
     },
     loadList() {
+      alert('qaangzunian');
       this.api.getBookList().then(res => {
         this.bookList = res.data.data
         /* 单次请求数据完毕 */
