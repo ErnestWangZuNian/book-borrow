@@ -2,7 +2,7 @@
  * @Author: wangzunian 
  * @Date: 2017-04-10 15:58:05 
  * @Last Modified by: wangzunian
- * @Last Modified time: 2017-12-28 16:38:15
+ * @Last Modified time: 2018-01-08 11:05:45
  */
 import Vue from 'vue'
 
@@ -14,7 +14,7 @@ Vue.filter('amount', (value) => {
 
 /**  金额利率处理，保留两位小数 */
 Vue.filter('interesRate', (value) => {
-  value = (value * 100 / 100).toFixed(2)
+  value = (value  / 100).toFixed(2)
   return value
 })
 

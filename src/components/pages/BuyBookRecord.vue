@@ -10,11 +10,11 @@
               <div class="book-list-isbn mt10">
                 {{child.isbn}}</div>
               <div class="book-list-btn mt10" @click="returnBook(child)">
-                <yd-button type="warning">{{item.price}}</yd-button>
+                <yd-button type="warning">{{child.price | interesRate}}</yd-button>
               </div>
             </div>
             <div class="book-borrows-count">
-              <yd-badge type="danger">查看详情</yd-badge>
+              <yd-badge type="danger"@click.native="gotoDetail(child)" >查看详情</yd-badge>
             </div>
           </yd-list-other>
         </yd-list-item>
@@ -45,6 +45,9 @@ export default {
         /* 单次请求数据完毕 */
         this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
       })
+    },
+    gotoDetail() {
+      //  window.open(child)
     },
     getBook() {
       this.api.applyRecord().then(res => {
