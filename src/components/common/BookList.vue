@@ -26,7 +26,7 @@
         </yd-list-item>
       </yd-list>
     </yd-pullrefresh>
-     <yd-backtop></yd-backtop>
+    <yd-backtop></yd-backtop>
     <!-- 弹窗提示 -->
     <yd-popup v-model="showModal" position="center" width="90%">
       <yd-button-group>
@@ -107,7 +107,12 @@ export default {
           });
         this.$refs.pullrefreshDemo.$emit('ydui.pullrefresh.finishLoad');
         })
-      }
+      }else{
+          this.$dialog.toast({
+              mes: '没有更多数据了'
+          });
+          this.$refs.pullrefreshDemo.$emit('ydui.pullrefresh.finishLoad');
+       }
     },
     confirmBorrow() {
       // this.api.borrow({
@@ -172,6 +177,9 @@ export default {
 
 .borrow-time .yd-btn-block {
   margin-top: 0;
+}
+.yd-backtop{
+background-color: red;
 }
 </style>
 

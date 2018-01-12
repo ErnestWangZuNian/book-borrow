@@ -1,7 +1,7 @@
 <template>
   <yd-layout title="借阅记录">
-    <yd-infinitescroll :callback="loadList" ref="infinitescrollDemo">
-      <yd-list theme="3" slot="list">
+    <yd-pullrefresh :callback="loadList" ref="pullrefreshDemo">
+      <yd-list theme="3">
         <yd-list-item v-for="child in bookList" :key="child.id">
           <img slot="img" :src="child.cover">
           <span slot="title">{{child.name}}</span>
@@ -22,12 +22,7 @@
           </yd-list-other>
         </yd-list-item>
       </yd-list>
-    </yd-infinitescroll>
-    <!-- 数据全部加载完毕显示 -->
-    <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>
-
-    <!-- 加载中提示，不指定，将显示默认加载中图标 -->
-    <img slot="loadingTip" src="http://static.ydcss.com/uploads/ydui/loading/loading10.svg" />
+    </yd-pullrefresh>
     <!-- 弹窗提示 -->
     <yd-popup v-model="showModal" position="center" width="90%">
       <yd-button-group>
