@@ -12,7 +12,7 @@
               <div class="book-list-btn mt10" v-if="child.locked == 2" @click="returnBook(child)">
                 <yd-button type="warning">我要还书</yd-button>
               </div>
-               <div class="book-list-btn mt10" v-if="child.locked == 1">
+              <div class="book-list-btn mt10" v-if="child.locked == 1">
                 <yd-button type="primary">已经还书</yd-button>
               </div>
             </div>
@@ -55,110 +55,106 @@
 </template>
 
 <script>
-export default {
-  name: 'Index',
-  data() {
-    return {
-      result: [],
-      bookList: [],
-      showModal: false,
-      showModal2: false,
-      selectedBook: null,
-      borrowdate: '',
-      borrowdate1: '',
-      value: ''
-    }
-  },
-  methods: {
-    borrow(child) {
-      this.showModal = true;
-      this.selectedBook = child;
+  export default {
+    name: 'Index',
+    data() {
+      return {
+        result: [],
+        bookList: [],
+        showModal: false,
+        showModal2: false,
+        selectedBook: null,
+        borrowdate: '',
+        borrowdate1: '',
+        value: ''
+      }
     },
-    returnBook(child) {
-      this.showModal2 = true;
-      this.selectedBook = child;
+    methods: {
+      borrow(child) {
+        this.showModal = true;
+        this.selectedBook = child;
+      },
+      returnBook(child) {
+        this.showModal2 = true;
+        this.selectedBook = child;
+      },
+      open() {
+        this.$refs.datetime.open();
+      },
+      open1() {
+        this.$refs.datetime1.open();
+      },
+      getBook() {
+        this.api.borrowRecord().then(res => {
+          this.bookList = res.data.data
+        })
+      },
+      loadList() {
+        this.api.getBookList().then(res => {
+          this.bookList = res.data.data
+          /* 单次请求数据完毕 */
+          this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
+        })
+      },
+      confirmBorrow() {
+        this.api.borrow({
+          book_id: this.selectedBook ? this.selectedBook.id : null,
+          pre_return_at: this.borrowdate
+        }).then(res => {
+          this.showModal = false;
+          this.getBook();
+        })
+      },
+      confirmBorrow1() {
+        this.api.returnBook({
+          book_id: this.selectedBook ? this.selectedBook.id : null,
+          pre_return_at: this.borrowdate1
+        }).then(res => {
+          this.showModal2 = false;
+          this.getBook();
+        })
+      }
     },
-    open() {
-      this.$refs.datetime.open();
-    },
-    open1() {
-      this.$refs.datetime1.open();
-    },
-    getBook() {
-      this.api.borrowRecord().then(res => {
-        this.bookList = res.data.data
-      })
-    },
-    loadList() {
-      this.api.getBookList().then(res => {
-        this.bookList = res.data.data
-        /* 单次请求数据完毕 */
-        this.$refs.infinitescrollDemo.$emit('ydui.infinitescroll.finishLoad');
-      })
-    },
-    confirmBorrow() {
-      this.api.borrow({
-        book_id: this.selectedBook ? this.selectedBook.id : null,
-        pre_return_at: this.borrowdate
-      }).then(res => {
-        this.showModal = false;
-        this.getBook();
-      })
-    },
-    confirmBorrow1() {
-      this.api.returnBook({
-        book_id: this.selectedBook ? this.selectedBook.id : null,
-        pre_return_at: this.borrowdate1
-      }).then(res => {
-        this.showModal2 = false;
-        this.getBook();
-      })
-    }
-  },
-  mounted() {
-    //格式化日期
-    Date.prototype.format = function(fmt) {
-      var o = {
-        "y+": this.getFullYear(),
-        "M+": this.getMonth() + 1,
-        "d+": this.getDate(),
-        "h+": this.getHours(),
-        "m+": this.getMinutes(),
-        "s+": this.getSeconds(),
-        "q+": Math.floor((this.getMonth() + 3) / 3),
-        "S+": this.getMilliseconds()
-      };
-      for (var k in o) {
-        if (new RegExp("(" + k + ")").test(fmt)) {
-          if (k == "y+") {
-            fmt = fmt.replace(RegExp.$1, ("" + o[k]).substr(4 - RegExp.$1.length));
-          }
-          else if (k == "S+") {
-            var lens = RegExp.$1.length;
-            lens = lens == 1 ? 3 : lens;
-            fmt = fmt.replace(RegExp.$1, ("00" + o[k]).substr(("" + o[k]).length - 1, lens));
-          }
-          else {
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    mounted() {
+      //格式化日期
+      Date.prototype.format = function(fmt) {
+        var o = {
+          "y+": this.getFullYear(),
+          "M+": this.getMonth() + 1,
+          "d+": this.getDate(),
+          "h+": this.getHours(),
+          "m+": this.getMinutes(),
+          "s+": this.getSeconds(),
+          "q+": Math.floor((this.getMonth() + 3) / 3),
+          "S+": this.getMilliseconds()
+        };
+        for (var k in o) {
+          if (new RegExp("(" + k + ")").test(fmt)) {
+            if (k == "y+") {
+              fmt = fmt.replace(RegExp.$1, ("" + o[k]).substr(4 - RegExp.$1.length));
+            } else if (k == "S+") {
+              var lens = RegExp.$1.length;
+              lens = lens == 1 ? 3 : lens;
+              fmt = fmt.replace(RegExp.$1, ("00" + o[k]).substr(("" + o[k]).length - 1, lens));
+            } else {
+              fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            }
           }
         }
+        return fmt;
       }
-      return fmt;
+      let curDate = new Date();
+      this.borrowdate = new Date().format('yyyy-MM-dd');
+      this.borrowdate1 = new Date().format('yyyy-MM-dd');
+      this.getBook();
     }
-
-    let curDate = new Date();
-    this.borrowdate = new Date().format('yyyy-MM-dd');
-    this.borrowdate1 = new Date().format('yyyy-MM-dd');
-    this.getBook();
   }
-}
 </script>
 <style scoped>
-.borrow-time {
-  padding: 0.2rem;
-}
-
-.borrow-time .yd-btn-block {
-  margin-top: 0;
-}
+  .borrow-time {
+    padding: 0.2rem;
+  }
+  .borrow-time .yd-btn-block {
+    margin-top: 0;
+  }
 </style>

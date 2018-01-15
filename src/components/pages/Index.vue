@@ -6,23 +6,22 @@
 </template>
 
 <script>
-import BookList from '../common/BookList'
-export default {
-  name: 'Index',
-  components:{
-    BookList
-  },
-  data(){
-    return {
-      result: [],
-      searchValue: '',
+  import BookList from '../common/BookList'
+  export default {
+    name: 'Index',
+    components: {
+      BookList
+    },
+    data() {
+      return {
+        result: [],
+        searchValue: '',
+      }
+    },
+    methods: {
+      submitHandler() {
+      }
     }
-  },
-  methods: {
-   submitHandler(){
-
-   }
   }
-}
 </script>
 
